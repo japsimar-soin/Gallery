@@ -10,6 +10,7 @@ import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
 import { ClerkProvider } from "@clerk/nextjs";
 import { TopNav } from "./_components/topnav";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "gallery",
@@ -40,6 +41,7 @@ export default function RootLayout({
           </div>
           {modal}
           <div id="modal-root" />
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>

@@ -1,6 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { toast } from "sonner";
 import { useUploadThing } from "~/utils/uploadthing";
 
 // inferred input off useUploadThing
@@ -48,11 +50,50 @@ function UploadSVG() {
   );
 }
 
+function LoadingSpinnerSVG() {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="white"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z"
+        className="spinner_6kVp"
+      />
+    </svg>
+  );
+}
+
 export function SimpleUploadButton() {
   const router = useRouter();
 
+  useEffect(() => {
+    toast("hi", {
+      duration: 10000,
+      id: "upload-begin",
+    });
+  }, []);
+
   const { inputProps } = useUploadThingInputProps("imageUploader", {
+    onUploadBegin() {toast(
+      <div className="flex gap-2 font-thin text-lg items-center">
+        <LoadingSpinnerSVG />
+       <span>
+         Uploading...
+         </span>
+      </div>,
+      {
+        className: 'bg-zinc-800 text-white  p-4 rounded-md',
+        duration: 10000,
+        id: "upload-begin",
+      },
+    );},
     onClientUploadComplete() {
+      toast.dismiss("upload-begin");
+      toast("Upload complete!");
       router.refresh();
     },
   });

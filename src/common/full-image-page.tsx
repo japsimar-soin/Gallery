@@ -27,3 +27,4 @@ export default async function FullPageImageView(props: { id: number }) {
     </div>
   );
 }
+
