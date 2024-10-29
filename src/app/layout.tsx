@@ -11,6 +11,7 @@ import { ourFileRouter } from "./api/uploadthing/core";
 import { ClerkProvider } from "@clerk/nextjs";
 import { TopNav } from "./_components/topnav";
 import { Toaster } from "sonner";
+import { CSPostHogProvider } from "./_analytics/provider";
 
 export const metadata: Metadata = {
   title: "gallery",
@@ -24,6 +25,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode; modal: React.ReactNode }>) {
   return (
     <ClerkProvider>
+      <CSPostHogProvider>
       <html lang="en">
         <NextSSRPlugin
           /**
@@ -44,6 +46,7 @@ export default function RootLayout({
           <Toaster />
         </body>
       </html>
+      </CSPostHogProvider>
     </ClerkProvider>
   );
 }

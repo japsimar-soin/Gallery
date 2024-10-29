@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { toast } from "sonner";
 import { useUploadThing } from "~/utils/uploadthing";
 
@@ -69,13 +68,6 @@ function LoadingSpinnerSVG() {
 
 export function SimpleUploadButton() {
   const router = useRouter();
-
-  useEffect(() => {
-    toast("hi", {
-      duration: 10000,
-      id: "upload-begin",
-    });
-  }, []);
 
   const { inputProps } = useUploadThingInputProps("imageUploader", {
     onUploadBegin() {toast(
